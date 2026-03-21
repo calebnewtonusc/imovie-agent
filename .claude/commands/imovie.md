@@ -1,38 +1,34 @@
 Update iMovie with recently AirDropped media. Run immediately — no clarifying questions.
 
-## Step 1: Check status
+## Step 1: Find the agent and check status
 
+Locate the agent directory (wherever you cloned this repo):
 ```
-bash /Users/joelnewton/Desktop/2026-Code/_System/imovie-agent/agent.sh --status
+AGENT=$(find ~ -maxdepth 6 -name "agent.sh" -path "*/imovie-agent/*" 2>/dev/null | head -1)
+bash "$AGENT" --status
 ```
 
-Parse the JSON output to understand how many files are queued and what project we're targeting.
+Parse output: file count, target project, whether it's a first run.
 
-## Step 2: Import based on what Caleb said
+## Step 2: Import based on what the user said
 
-- Default / "yo I AirDropped clips" / "update iMovie" → run with no flags (auto mode)
+- Default / "yo I AirDropped clips" / "update iMovie" → no flags (auto mode)
 - "add to current project" → `--import-only`
 - "new project" / "start fresh" / new week → `--new`
 - "add to [name]" → `--project "Name"`
+- "just last N days" → `--since-days N`
+- "import everything" → `--all`
 
 ```
-bash /Users/joelnewton/Desktop/2026-Code/_System/imovie-agent/agent.sh [flags]
+bash "$AGENT" [flags]
 ```
-
-iMovie will open, create the project if needed, and import all staged clips in chronological order.
 
 ## Step 3: Report back
-
-Tell Caleb:
-
-- How many files were imported
-- Which project they went into
-- Any files that were Live Photos (auto-converted to MOV)
-- The staged folder path (in case he wants to double-check)
+- Files imported, project name, any Live Photos auto-converted to MOV
+- Staged folder path, any errors + manual fallback instructions
 
 ## Notes
-
+- First run auto-limits to last 14 days — use `--all` to override
 - Files are staged to `~/Movies/iMovie-Staged/<week>/` before import — safe to run twice
-- Live Photos automatically import as MOV (the motion clip), not the still HEIC
-- State is tracked in `_System/imovie-agent/state.json` — works across any chat session
-- Willow trigger is a separate daemon (`willow-trigger.sh`) that auto-fires this when Caleb speaks the intent
+- State in `state.json` persists across chat sessions
+- Willow daemon (`willow-trigger.sh`) can auto-fire this on voice command

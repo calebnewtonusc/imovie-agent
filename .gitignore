@@ -1,0 +1,3 @@
+.willow-last-processed
+# Ignore personal state (has your machine's file paths)
+# Copy state.json.template to state.json to get started

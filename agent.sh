@@ -66,7 +66,7 @@ fi
 # ── Status mode ───────────────────────────────────────────────────────────────
 if [ "$STATUS_ONLY" = true ]; then
     log "Checking status..."
-    STATUS_JSON=$(python3 "$STAGE_PY" status "${STAGE_EXTRA_ARGS[@]:-}")
+    STATUS_JSON=$(python3 "$STAGE_PY" status ${STAGE_EXTRA_ARGS[@]+"${STAGE_EXTRA_ARGS[@]}"})
     IS_FIRST=$(echo "$STATUS_JSON" | python3 -c "import json,sys; d=json.load(sys.stdin); print('yes' if d.get('is_first_run') else 'no')")
     NEW_COUNT=$(echo "$STATUS_JSON" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['new_count'])")
     WEEK=$(echo "$STATUS_JSON" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['week_label'])")
@@ -96,7 +96,7 @@ check_accessibility
 
 # ── Detect + stage new media ──────────────────────────────────────────────────
 log "Scanning ~/Downloads for new AirDrop media..."
-RESULT=$(python3 "$STAGE_PY" stage "${STAGE_EXTRA_ARGS[@]:-}")
+RESULT=$(python3 "$STAGE_PY" stage ${STAGE_EXTRA_ARGS[@]+"${STAGE_EXTRA_ARGS[@]}"})
 
 NEW_COUNT=$(echo "$RESULT"   | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['new_count'])")
 WEEK_LABEL=$(echo "$RESULT"  | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['week_label'])")
