@@ -117,3 +117,5 @@ iMovie 10.x has no AppleScript dictionary for importing or creating projects —
 ## License
 
 MIT
+
+All glory to God! ✝️❤️
