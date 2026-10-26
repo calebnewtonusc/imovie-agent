@@ -1,6 +1,6 @@
 # iMovie Agent
 
-AirDrop clips, photos, and Live Photos to your Mac — then say the word and they're in iMovie. Automatically creates weekly projects, imports in chronological order, and handles Live Photos correctly.
+AirDrop clips, photos, and Live Photos to your Mac, then say the word and they're in iMovie. Automatically creates weekly projects, imports in chronological order, and handles Live Photos correctly.
 
 ## What it does
 
@@ -86,7 +86,7 @@ launchctl load ~/Library/LaunchAgents/com.imovieagent.willow.plist
 
 ## How Live Photos work
 
-iPhones AirDrop Live Photos as two files: `IMG_xxxx.HEIC` (still) + `IMG_xxxx.MOV` (motion). The agent automatically detects these pairs by matching filenames and imports only the `.MOV` — so you get the motion clip in your timeline, not a static photo.
+iPhones AirDrop Live Photos as two files: `IMG_xxxx.HEIC` (still) + `IMG_xxxx.MOV` (motion). The agent automatically detects these pairs by matching filenames and imports only the `.MOV`, so you get the motion clip in your timeline, not a static photo.
 
 ## File structure
 
@@ -107,12 +107,12 @@ imovie-agent/
 
 ## Notes on iMovie automation
 
-iMovie 10.x has no AppleScript dictionary for importing or creating projects — the agent uses `System Events` GUI automation (click-level scripting). This means:
+iMovie 10.x has no AppleScript dictionary for importing or creating projects, the agent uses `System Events` GUI automation (click-level scripting). This means:
 
-- **Accessibility permission is required** — the agent will tell you if it's missing
+- **Accessibility permission is required**: the agent will tell you if it's missing
 - iMovie must be accessible and not locked behind another full-screen app
-- Import waits 5 seconds after clicking — large batches may need a moment longer before iMovie finishes; the clips will all be there
-- If the automation fails, your files are always safely staged in `~/Movies/iMovie-Staged/` — just open iMovie > File > Import Media and point it there
+- Import waits 5 seconds after clicking, large batches may need a moment longer before iMovie finishes; the clips will all be there
+- If the automation fails, your files are always safely staged in `~/Movies/iMovie-Staged/`, just open iMovie > File > Import Media and point it there
 
 ## License
 
